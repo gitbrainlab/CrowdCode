@@ -1,0 +1,51 @@
+name: CrowdCode - Vote Counting
+
+on:
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+  issue_comment:
+    types: [created]
+  schedule:
+    - cron: '0 * * * *'  # Hourly
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run mode (no actual changes)'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  pull-requests: write
+  issues: write
+
+jobs:
+  count-votes:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          pip install PyGithub pyyaml
+      
+      - name: Count and Update Votes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: |
+          python scripts/validate-votes.py
+      
+      - name: Summary
+        run: |
+          echo "## CrowdCode Vote Counting Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Vote counting completed. Check script output for details." >> $GITHUB_STEP_SUMMARY
