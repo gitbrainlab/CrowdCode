@@ -54,22 +54,19 @@ def count_votes(pr, members, config):
         'review': set()
     }
     
-    # Count reactions
+    # Count reactions on PR body
     if config['voting'].get('count_reactions', True):
         try:
-            reactions = pr.get_issue_comments()
-            for comment in reactions:
-                if comment.user.login in members:
-                    # Get reactions on this comment
-                    for reaction in comment.get_reactions():
-                        if reaction.user.login in members:
-                            content = reaction.content
-                            if content in config['voting']['valid_reactions']['approve']:
-                                votes['approve'].add(reaction.user.login)
-                            elif content in config['voting']['valid_reactions']['reject']:
-                                votes['reject'].add(reaction.user.login)
-                            elif content in config['voting']['valid_reactions']['review']:
-                                votes['review'].add(reaction.user.login)
+            # Get reactions on the PR itself
+            for reaction in pr.get_reactions():
+                if reaction.user.login in members:
+                    content = reaction.content
+                    if content in config['voting']['valid_reactions']['approve']:
+                        votes['approve'].add(reaction.user.login)
+                    elif content in config['voting']['valid_reactions']['reject']:
+                        votes['reject'].add(reaction.user.login)
+                    elif content in config['voting']['valid_reactions']['review']:
+                        votes['review'].add(reaction.user.login)
         except Exception as e:
             print(f"    Warning: Could not fetch reactions: {e}")
     
@@ -122,7 +119,12 @@ def check_promotion_criteria(votes, config):
     if total_votes < quorum:
         return False, f"Quorum not met ({total_votes}/{quorum})"
     
-    approval_rate = votes['approve'] / total_votes if total_votes > 0 else 0
+    # Calculate approval rate from decisive votes only (exclude 'review')
+    decisive_votes = votes['approve'] + votes['reject']
+    if decisive_votes == 0:
+        return False, "No decisive votes (only review votes)"
+    
+    approval_rate = votes['approve'] / decisive_votes
     
     if approval_rate < threshold:
         return False, f"Approval rate too low ({approval_rate:.1%} < {threshold:.0%})"
@@ -131,10 +133,13 @@ def check_promotion_criteria(votes, config):
 
 def generate_vote_summary(votes, ready, reason):
     """Generate markdown summary of votes"""
+    decisive_votes = votes['approve'] + votes['reject']
+    approval_pct = votes['approve'] / decisive_votes * 100 if decisive_votes > 0 else 0
+    
     summary = f"""## 🗳️ PatchPanel Vote Status
 
 **Vote Count**: {votes['approve']} approve, {votes['reject']} reject, {votes['review']} review ({votes['total']} total)
-**Approval Rate**: {votes['approve'] / votes['total'] * 100 if votes['total'] > 0 else 0:.1f}%
+**Approval Rate**: {approval_pct:.1f}% ({votes['approve']}/{decisive_votes} decisive votes)
 **Status**: {'✅ ' + reason if ready else '⏳ ' + reason}
 
 ### Votes by Member

@@ -9,6 +9,7 @@ AI-powered pull requests for each one.
 import os
 import sys
 import json
+import re
 import yaml
 from github import Github
 from datetime import datetime
@@ -39,7 +40,6 @@ def load_config():
 
 def slugify(text):
     """Convert text to URL-friendly slug"""
-    import re
     text = text.lower()
     text = re.sub(r'[^\w\s-]', '', text)
     text = re.sub(r'[\s_-]+', '-', text)
