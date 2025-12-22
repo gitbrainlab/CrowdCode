@@ -1,0 +1,86 @@
+# CrowdCode Platform Configuration
+
+# Issue Processing
+issue_processing:
+  max_per_run: 5  # Maximum number of issues to process per workflow run
+  labels:
+    feature_request: "crowdcode:feature-request"
+    pending_pr: "crowdcode:pending-pr"
+    ai_generated: "crowdcode:ai-generated"
+    voting: "crowdcode:voting"
+    ready_to_promote: "crowdcode:ready-to-promote"
+    promoted: "crowdcode:promoted"
+    archived: "crowdcode:archived"
+
+# AI Code Generation
+ai_generation:
+  enabled: true
+  model: "gpt-4"  # AI model to use for code generation
+  max_tokens: 4000
+  temperature: 0.7
+  retry_attempts: 3
+  timeout_seconds: 300
+
+# Voting System
+voting:
+  quorum: 3  # Minimum number of votes required
+  approval_threshold: 0.5  # 50% approval needed (0.0 to 1.0)
+  voting_period_days: 7  # How long voting stays open
+  auto_close_on_threshold: true  # Automatically close voting when threshold met
+  count_reactions: true  # Count PR reactions as votes
+  count_reviews: true  # Count PR reviews as votes
+  
+  # Valid reactions for voting
+  valid_reactions:
+    approve: ["+1", "thumbsup", "heart"]
+    reject: ["-1", "thumbsdown"]
+    review: ["eyes", "thinking_face"]
+  
+  # Review state mappings
+  review_mapping:
+    APPROVED: "approve"
+    CHANGES_REQUESTED: "reject"
+    COMMENTED: "review"
+
+# Feature Promotion
+promotion:
+  merge_method: "squash"  # Options: merge, squash, rebase
+  require_tests: false  # Require tests to pass before promotion
+  require_codeql: false  # Require CodeQL security scan before promotion
+  auto_delete_branch: false  # Keep feature branches visible
+  auto_deploy: false  # Automatically deploy after promotion
+  notify_members: true  # Notify PatchPanel members of promotion
+
+# Branch Management
+branches:
+  prefix: "crowdcode/feature"  # Prefix for feature branches
+  base_branch: "main"  # Base branch for features
+  protection_rules:
+    require_review: false  # AI generates, humans vote instead
+    require_status_checks: false
+
+# PatchPanel
+patchpanel:
+  membership_file: ".github/PATCHPANEL_MEMBERS.json"
+  allow_membership_requests: true
+  require_physical_codes: false
+  membership_issue_label: "crowdcode:membership-request"
+
+# Notifications
+notifications:
+  slack:
+    enabled: false
+    webhook_secret: "SLACK_WEBHOOK"
+  discord:
+    enabled: false
+    webhook_secret: "DISCORD_WEBHOOK"
+  github:
+    enabled: true
+    mention_on_promotion: true
+
+# Dashboard
+dashboard:
+  enabled: true
+  path: "docs/features"
+  update_readme: true
+  generate_changelog: true

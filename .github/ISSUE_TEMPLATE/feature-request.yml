@@ -1,0 +1,133 @@
+name: CrowdCode Feature Request
+description: Submit a feature idea for AI-powered implementation
+title: "[FEATURE] "
+labels: ["crowdcode:feature-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🤖 CrowdCode Feature Request
+        
+        This feature will be reviewed and potentially implemented by AI (GitHub Copilot).
+        PatchPanel members will vote on whether to promote it to the main branch.
+        
+        **How it works:**
+        1. You submit this feature request
+        2. AI generates a pull request with implementation
+        3. PatchPanel members review and vote
+        4. If approved, the feature is merged to main
+        
+        All feature branches remain visible, even if not merged.
+  
+  - type: input
+    id: feature-name
+    attributes:
+      label: Feature Name
+      description: Short, descriptive name for this feature
+      placeholder: "e.g., Dark Mode Support, Advanced Search, Export to CSV"
+    validations:
+      required: true
+  
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Description
+      description: Detailed description of what this feature should do
+      placeholder: |
+        Describe the feature in detail:
+        - What functionality should it add?
+        - How should it work?
+        - What should the user experience be?
+        
+        Be as specific as possible to help the AI generate accurate code.
+    validations:
+      required: true
+  
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case / Motivation
+      description: Why is this feature needed?
+      placeholder: |
+        Explain why this feature would be valuable:
+        - What problem does it solve?
+        - Who would benefit from it?
+        - How does it align with project goals?
+        
+        Help the community understand the value proposition.
+    validations:
+      required: true
+  
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: Acceptance Criteria
+      description: How will we know this feature is complete and working correctly?
+      placeholder: |
+        List specific, testable criteria:
+        - [ ] User can toggle dark mode via button in header
+        - [ ] Dark mode preference is saved to localStorage
+        - [ ] All UI elements have appropriate dark mode colors
+        - [ ] Accessibility (contrast ratios) maintained in dark mode
+        
+        These help validate the AI-generated implementation.
+    validations:
+      required: false
+  
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this feature?
+      options:
+        - Low - Nice to have
+        - Medium - Would improve the project
+        - High - Important for project goals
+        - Critical - Blocks other work or fixes major issue
+      default: 1
+    validations:
+      required: false
+  
+  - type: textarea
+    id: technical-notes
+    attributes:
+      label: Technical Notes (Optional)
+      description: Any technical considerations or suggestions for implementation
+      placeholder: |
+        Optional technical guidance for AI implementation:
+        - Suggested approach or architecture
+        - Files that may need changes
+        - Dependencies or libraries to consider
+        - Potential challenges or edge cases to handle
+        - Similar features in other projects for reference
+    validations:
+      required: false
+  
+  - type: textarea
+    id: examples
+    attributes:
+      label: Examples or References (Optional)
+      description: Links to similar features, mockups, or examples
+      placeholder: |
+        Helpful references:
+        - Screenshots or mockups
+        - Links to similar features in other projects
+        - Code examples or snippets
+        - Design inspiration
+    validations:
+      required: false
+  
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: CrowdCode Terms
+      description: By submitting this issue, you agree that
+      options:
+        - label: This feature will be implemented by AI (GitHub Copilot)
+          required: true
+        - label: The implementation will be subject to PatchPanel voting
+          required: true
+        - label: The feature branch will remain public even if not merged
+          required: true
+        - label: I have searched existing issues to avoid duplicates
+          required: true

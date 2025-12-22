@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "updated": "2025-12-21T21:00:00Z",
+  "description": "Authorized PatchPanel members for CrowdCode voting",
+  "members": [
+    {
+      "github_username": "evcatalyst",
+      "joined": "2025-12-21T21:00:00Z",
+      "role": "founding",
+      "active": true,
+      "notes": "Project founder"
+    }
+  ],
+  "codes": {
+    "prefix": "PATCH",
+    "year": 2025,
+    "next_sequence": 1,
+    "redemption_enabled": false
+  }
+}
