@@ -117,6 +117,8 @@ Create GitHub labels for CrowdCode workflow states:
 gh label create "crowdcode:feature-request" \
   --color "0e8a16" \
   --description "New feature idea submitted by community"
+# Note: Colors use GitHub's label color hex codes
+# 0e8a16 = green (for new/active), fbca04 = yellow (pending), etc.
 
 gh label create "crowdcode:pending-pr" \
   --color "fbca04" \

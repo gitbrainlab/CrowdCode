@@ -116,8 +116,7 @@ permissions:
 
 **Option 1: Delete workflow file** (complete removal)
 ```bash
-rm .github/workflows/crowdcode-issue-to-pr.yml
-git add .github/workflows/crowdcode-issue-to-pr.yml
+git rm .github/workflows/crowdcode-issue-to-pr.yml
 git commit -m "Disable CrowdCode PR generation"
 git push
 ```
@@ -293,8 +292,7 @@ permissions:
 
 **Option 1: Delete workflow file**
 ```bash
-rm .github/workflows/crowdcode-vote-counting.yml
-git add .github/workflows/crowdcode-vote-counting.yml
+git rm .github/workflows/crowdcode-vote-counting.yml
 git commit -m "Disable CrowdCode vote counting"
 git push
 ```
@@ -427,8 +425,7 @@ permissions:
 
 **Option 1: Delete workflow file** (complete removal)
 ```bash
-rm .github/workflows/crowdcode-feature-promotion.yml
-git add .github/workflows/crowdcode-feature-promotion.yml
+git rm .github/workflows/crowdcode-feature-promotion.yml
 git commit -m "Disable CrowdCode feature promotion"
 git push
 ```
@@ -576,8 +573,7 @@ permissions:
 
 **Option 1: Delete workflow file**
 ```bash
-rm .github/workflows/crowdcode-branch-visibility.yml
-git add .github/workflows/crowdcode-branch-visibility.yml
+git rm .github/workflows/crowdcode-branch-visibility.yml
 git commit -m "Disable CrowdCode branch visibility dashboard"
 git push
 ```
@@ -692,8 +688,7 @@ To completely disable CrowdCode:
 
 ```bash
 # Option 1: Delete all workflow files
-rm .github/workflows/crowdcode-*.yml
-git add .github/workflows/
+git rm .github/workflows/crowdcode-*.yml
 git commit -m "Disable all CrowdCode workflows"
 git push
 
@@ -780,10 +775,10 @@ permissions:
 **Never** log or expose secrets:
 
 ```yaml
-# Bad - logs secret
-- run: echo ${{ secrets.API_KEY }}
+# ❌ INSECURE - logs secret (DO NOT DO THIS)
+- run: echo ${{ secrets.PLACEHOLDER_KEY }}
 
-# Good - uses secret safely
+# ✅ SECURE - uses secret safely
 - run: python script.py
   env:
     API_KEY: ${{ secrets.API_KEY }}

