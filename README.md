@@ -14,11 +14,17 @@ CrowdCode is a collaborative platform for community-driven software development 
 
 ## Quick Links
 
+### Documentation
+- 📚 **[Documentation Hub](docs/index.md)** - Start here for complete guide
+- 🚀 **[Setup Guide](docs/setup.md)** - Install CrowdCode in your repo
+- ⚙️ **[Workflows Reference](docs/workflows.md)** - Automation details
+- 🗳️ **[Governance Guide](docs/governance.md)** - Voting and PatchPanel
+- 🛡️ **[Threat Model](docs/threat-model.md)** - Security considerations
+
+### Reference
 - 📖 [Architecture Overview](ARCHITECTURE.md)
-- 🚀 [Getting Started Guide](docs/GETTING_STARTED.md)
-- 🗳️ [Voting Mechanism](docs/VOTING_MECHANISM.md)
-- ⚙️ [Workflow Design](docs/WORKFLOW_DESIGN.md)
 - 🗺️ [Roadmap](docs/ROADMAP.md)
+- 📝 [Contributing](CONTRIBUTING.md)
 
 ## What is CrowdCode?
 
@@ -36,10 +42,11 @@ Feature Request → AI Generates PR → Community Votes → Automatic Promotion
 
 ### Key Principles
 
-1. **AI as Contributor, Not Authority**: GitHub Copilot generates code, but humans decide what gets merged
+1. **AI as Contributor, Not Authority**: AI generates code proposals, but humans decide what gets merged
 2. **Radical Transparency**: All feature branches are public, all votes are visible
 3. **Democratic Governance**: PatchPanel members vote on features
 4. **Complete Auditability**: Every decision tracked in Git history
+5. **Safety First**: AI code requires review; every automation has an off switch
 
 ## Core Features
 
@@ -123,7 +130,33 @@ When voting threshold is met:
 - Feature branch remains visible
 - Changelog is updated
 
-## Getting Started
+## Try It Quickly
+
+### 🚀 Safe Trial (Recommended)
+
+Trial CrowdCode in a test repository before production use:
+
+```bash
+# 1. Create a test repository
+gh repo create my-org/crowdcode-trial --public --clone
+cd crowdcode-trial
+
+# 2. Copy CrowdCode files
+# See detailed setup: docs/setup.md
+
+# 3. Configure with conservative settings
+# - Small PatchPanel (2-3 trusted members)
+# - AI generation disabled initially
+# - Manual workflow triggers only
+
+# 4. Test with sample feature request
+# 5. Verify voting and promotion work as expected
+# 6. Deploy to production once comfortable
+```
+
+**⚠️ Important**: Read the [Threat Model](docs/threat-model.md) before enabling in production.
+
+**📖 Full Installation**: See [Setup Guide](docs/setup.md) for step-by-step instructions.
 
 ### For Users
 
@@ -137,7 +170,7 @@ When voting threshold is met:
 
 **Vote on features:**
 1. Browse [open PRs](../../pulls?q=is%3Apr+label%3Acrowdcode%3Avoting)
-2. Review the implementation
+2. Review the implementation (AI code requires human approval)
 3. Vote using 👍 👎 👀 reactions
 4. Or submit formal PR review
 
@@ -149,12 +182,29 @@ When voting threshold is met:
 3. Create required labels
 4. Test with sample feature
 
-See [Getting Started Guide](docs/GETTING_STARTED.md) for detailed instructions.
+See **[Setup Guide](docs/setup.md)** for detailed instructions.
 
 ## Project Status
 
 ### Current Phase: Phase 1 - Architecture & Documentation ✅
 
+**Ready for Trial Adoption**
+
+CrowdCode is ready for safe trial in test repositories. The workflow infrastructure is complete, with AI integration planned for Phase 2.
+
+**What's Working Now:**
+- ✅ Complete workflow automation (issue → PR → vote → promote)
+- ✅ PatchPanel voting system
+- ✅ Branch visibility and transparency
+- ✅ Manual PR creation and review
+- ✅ Comprehensive documentation with security focus
+
+**What's Coming (Phase 2):**
+- 🔜 AI-powered code generation
+- 🔜 Automated PR creation from issues
+- 🔜 Enhanced security scanning
+
+**Current Status:**
 - [x] Platform architecture designed
 - [x] Workflow specifications complete
 - [x] Voting mechanism documented
@@ -162,12 +212,13 @@ See [Getting Started Guide](docs/GETTING_STARTED.md) for detailed instructions.
 - [x] GitHub Actions workflows created
 - [x] Issue templates ready
 - [x] Scripts implemented (placeholder)
+- [x] **Comprehensive documentation** (Setup, Workflows, Governance, Threat Model)
 - [ ] **Next**: AI code generation integration
 
 ### Roadmap
 
-- **Phase 1** (Weeks 1-4): Architecture & Documentation ✅
-- **Phase 2** (Weeks 5-8): AI Integration & Automation
+- **Phase 1** (Weeks 1-4): Architecture & Documentation ✅ **COMPLETE**
+- **Phase 2** (Weeks 5-8): AI Integration & Automation 🔜 **NEXT**
 - **Phase 3** (Weeks 9-16): Generalization & Templates
 - **Phase 4** (Weeks 17-24): Ecosystem Development
 - **Phase 5** (Months 6-12): Platform Maturity
@@ -253,11 +304,27 @@ The platform is now being generalized for any collaborative software project.
 
 ## Documentation
 
-### Core Documentation
+### New: Maintainer-Focused Documentation
+
+**Essential Reading:**
+- **[Documentation Hub](docs/index.md)** - Overview, glossary, and navigation
+- **[Setup Guide](docs/setup.md)** - Install CrowdCode safely in your repository
+- **[Workflows Reference](docs/workflows.md)** - Complete automation guide with disable instructions
+- **[Governance Guide](docs/governance.md)** - PatchPanel membership and voting
+- **[Threat Model](docs/threat-model.md)** - Security analysis and mitigations
+
+**Key Features:**
+- ✅ Emphasis on safety and control
+- ✅ Every automation has an "off switch"
+- ✅ Data privacy documentation
+- ✅ Abuse and security considerations
+- ✅ Role definitions (proposer, voter, maintainer)
+
+### Reference Documentation
 - [Architecture Overview](ARCHITECTURE.md) - System design and components
-- [Getting Started](docs/GETTING_STARTED.md) - Setup and usage guide
-- [Voting Mechanism](docs/VOTING_MECHANISM.md) - How voting works
-- [Workflow Design](docs/WORKFLOW_DESIGN.md) - GitHub Actions details
+- [Getting Started](docs/GETTING_STARTED.md) - Original setup guide
+- [Voting Mechanism](docs/VOTING_MECHANISM.md) - Detailed voting mechanics
+- [Workflow Design](docs/WORKFLOW_DESIGN.md) - Original workflow specs
 - [Repository Structure](docs/REPO_STRUCTURE.md) - File organization
 - [Roadmap](docs/ROADMAP.md) - Evolution plan
 
